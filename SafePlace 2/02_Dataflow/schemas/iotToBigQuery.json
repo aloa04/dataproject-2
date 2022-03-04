@@ -1,0 +1,24 @@
+{
+    "fields": [
+    {
+      "mode": "NULLABLE",
+      "name": "device_id",
+      "type": "STRING"
+    },
+    {
+      "mode": "NULLABLE",
+      "name": "timeStamp",
+      "type": "STRING"
+    },
+    {
+      "mode": "NULLABLE",
+      "name": "processingTime",
+      "type": "STRING"
+    },
+    {
+      "mode": "NULLABLE",
+      "name": "id_persona",
+      "type": "FLOAT"
+    }
+    ]
+}

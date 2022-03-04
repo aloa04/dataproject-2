@@ -30,5 +30,5 @@ El objetivo del proyecto es diseñar una solución basada en cloud que emplee di
 
 ## Aplicaciónes para el cliente
 
-El personal de administarción
+El personal de administración controla que los alumnos y los profesores estén en las aulas o zonas comunes y avisa de posibles incidencias.
 

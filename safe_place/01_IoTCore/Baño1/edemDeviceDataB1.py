@@ -516,7 +516,7 @@ def mqtt_device_demo(args):
     )
 
     # Publish num_messages messages to the MQTT bridge once per second.
-    for i in range(1, args.num_messages + 1):
+    for i in range(1, 2):
         # Process network events.
         client.loop()
         # Wait if backoff is required.
@@ -534,12 +534,15 @@ def mqtt_device_demo(args):
             client.connect(args.mqtt_bridge_hostname, args.mqtt_bridge_port)
 
         #payload = "{}/{}-payload-{}".format(args.registry_id, args.device_id, i)
+        
+        time.sleep(75)
         payload_device = {
-            "device_id": args.device_id,
-            "timeStamp": str(datetime.datetime.now()),
-            "id_persona": round(random.uniform(75,79)),
 
-        }
+                "device_id": args.device_id,
+                "timeStamp": str(datetime.datetime.now()),
+                "id_persona": 16,
+            }
+            
         print("Publishing message {}/{}: '{}'".format(i, args.num_messages, payload_device))
         # [START iot_mqtt_jwt_refresh]
         seconds_since_issue = (datetime.datetime.now(tz=datetime.timezone.utc) - jwt_iat).seconds

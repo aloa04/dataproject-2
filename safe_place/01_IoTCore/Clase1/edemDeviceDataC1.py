@@ -534,12 +534,30 @@ def mqtt_device_demo(args):
             client.connect(args.mqtt_bridge_hostname, args.mqtt_bridge_port)
 
         #payload = "{}/{}-payload-{}".format(args.registry_id, args.device_id, i)
-        payload_device = {
+        
+        if(i < 16):
+            payload_device = {
             "device_id": args.device_id,
             "timeStamp": str(datetime.datetime.now()),
-            "id_persona": round(random.uniform(1,24)),
+            "id_persona": i,
+    }
 
-        }
+        if(i == 16):
+            time.sleep(100)
+
+        if(i > 15):
+                j = i - 15 
+                payload_device = {
+                "device_id": args.device_id,
+                "timeStamp": str(datetime.datetime.now()),
+                "id_persona": j, }
+                if(j > 15):
+                    break
+                    
+                
+        
+
+
         print("Publishing message {}/{}: '{}'".format(i, args.num_messages, payload_device))
         # [START iot_mqtt_jwt_refresh]
         seconds_since_issue = (datetime.datetime.now(tz=datetime.timezone.utc) - jwt_iat).seconds

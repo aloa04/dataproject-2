@@ -1,1 +1,5 @@
 google-cloud-iot
+google-cloud-logging
+google-cloud-bigquery
+datetime
+pyarrow

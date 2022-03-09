@@ -36,10 +36,15 @@ def parse_json_message(message):
     #Return function
     return row
 
+class parse_json(beam.DoFn):
+    def process(self, element):
+        output_json = json.dumps(element)
+        yield output_json.encode('utf-8')
+
 
 #Create Beam pipeline
 
-def edemData(output_table):
+def deviceActions(output_table):
 
     #Load schema from BigQuery/schemas folder
     with open(f"schemas/{output_table}.json") as file:
@@ -62,11 +67,8 @@ def edemData(output_table):
               | "Parse JSON messages" >> beam.Map(parse_json_message)
         )
         
-        #Part02: Manage data to create in and out variable
-        #IN AND OUT TIENE QUE IR POR AQUÍ, hay que crear un transformation step antes de escribir-lo a bigquery
 
-
-        #Part03: Write proccessing message to their appropiate sink
+        #Part02: Write proccessing message to their appropiate sink
         #Data to Bigquery
         (data | "Write to BigQuery" >> beam.io.WriteToBigQuery(
             table = f"safeplaceid:safeplacedb.{output_table}",
@@ -75,7 +77,15 @@ def edemData(output_table):
             write_disposition=beam.io.BigQueryDisposition.WRITE_APPEND
         ))
 
+        # Part03: Publish data to CloudFunctions topic
+        
+        (data
+            | "Parse JSON" >> beam.ParDo(parse_json())
+            | "Write to CF topic" >> beam.io.WriteToPubSub(topic=f"projects/safeplaceid/topics/iotToCloudFunctions", with_attributes=False)
+         )
+
+
 
 if __name__ == '__main__':
     logging.getLogger().setLevel(logging.INFO)
-    edemData("iotToBigQuery")
+    deviceActions("iotToBigQuery")

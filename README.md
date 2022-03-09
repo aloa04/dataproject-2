@@ -30,6 +30,8 @@ En Google Cloud empleamos los siguientes servicios
 
 
 
+![](https://github.com/aloa04/dataproject-2/blob/main/media/gcp.png?raw=true)
+
 
 
 Además, empleamos Python 3.7 en DataFlow para crear la lógica para concocer si los alumnos entran o salen de clase. También se utiliza en CLoud Functions para detectar si alguna persona permanece demasiado tiempo en las zonas "de paso".
@@ -82,6 +84,8 @@ En BigQuery se almacenarán las diferentes tablas que empleamos en el proyecto:
 **DataFlow**
 
 Desde Dataflow leemos los datos producidos por IoT Core y se procesan para comprobar si la persona entra o sale del aula. Tras ello se almacena en BigQuery. Además También se procesa con Cloud Funtions las alertas para controlar la presencialidad de los alumnos.
+
+![](https://github.com/aloa04/dataproject-2/blob/main/media/dataflow.png?raw=true)
 
 
 

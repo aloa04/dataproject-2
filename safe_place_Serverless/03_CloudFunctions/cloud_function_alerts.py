@@ -45,11 +45,10 @@ def alert(event, context):
     q = f"""SELECT id_persona, Max(timestamp) as tiempo  FROM `{TABLE_READ}` where device_id = 'bano1' group by id_persona Having count(*)%2 = 1""" # Aquí estamos creando una consulta sql y poniendola en la variable q
     df = (client.query(q).result().to_dataframe()) # Ejecuta la consulta "q" con el cliente que hemos creado antes, todo esto se mete en la variable "df"
 
-    """ GET LAST ARRIVAL """
     df['tiempo'] = df['tiempo'].apply(parse_time)
     
     timespent = df['tiempo'] - datetime.now()
-    timespent = datetime(year=2020, month=1, day=1, hour=0, minute=8, second=0)
+    timespent1 = datetime(year=2020, month=1, day=1, hour=0, minute=8, second=0)
     timespent2 = datetime(year=2020, month=1, day=1, hour=0, minute=1, second=0)
     timedelta = timespent - timespent2
     
